@@ -1,6 +1,8 @@
 from django.conf.urls import url
 
+from views import question
+
 urlpatterns = [
 
-    url(r'^', 'qa.views.test'),
+    url(r'^', question),
 ]
