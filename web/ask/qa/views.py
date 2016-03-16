@@ -1,6 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_POST
 from models import Answer, Question
+from forms import AskForm, AnswerForm
 from helpers import paginate
 
 
@@ -36,3 +38,25 @@ def popular_questions(request):
         'qa/popular.html',
         {'page': page, 'title': 'popular'}
     )
+
+
+def ask(request):
+    if request.method == 'POST':
+        form = AskForm(request.POST)
+        if form.is_valid():
+            q = form.save()
+            url = '/question/%s/' % q.pk
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+    return render(request, 'qa/ask.html', {'form': form})
+
+
+@require_POST
+def answer(request):
+    form = AnswerForm(request.POST)
+    if form.is_valid():
+        a = form.save()
+        url = '/question/%s/' % a.question.pk
+        return HttpResponseRedirect(url)
+    return HttpResponseRedirect('/answer/')
