@@ -23,7 +23,7 @@ def new_question(request):
     page = paginate(request, q)
     return render(
         request,
-        'question_list.html',
+        'qa/question_list.html',
         {'page': page, 'title': 'new questions'}
     )
 
@@ -33,6 +33,6 @@ def popular_questions(request):
     page = paginate(request, q)
     return render(
         request,
-        'popular.html',
+        'qa/popular.html',
         {'page': page, 'title': 'popular'}
     )
