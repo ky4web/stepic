@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^ask/', ask),
     url(r'^popular/', popular_questions),
     url(r'^new/', test),
-    url(r'^', new_question),
+    url(r'^$', new_question),
     url(r'^admin/', admin.site.urls),
     url(r'answer/$', answer),
 ]
