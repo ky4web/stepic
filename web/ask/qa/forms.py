@@ -10,7 +10,7 @@ class AskForm(forms.Form):
         q = Question.objects.create(
             title=self.cleaned_data['title'],
             text=self.cleaned_data['text'],
-            author=self.author,
+            author=getattr(self, '_user', None),
         )
         return q
 
@@ -23,6 +23,6 @@ class AnswerForm(forms.Form):
         a = Answer.objects.create(
             text=self.cleaned_data['text'],
             question_id=self.cleaned_data['question'],
-            author=self.author,
+            author=getattr(self, '_user', None),
         )
         return a
