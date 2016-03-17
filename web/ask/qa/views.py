@@ -72,7 +72,7 @@ def signup(request):
             return HttpResponseRedirect('/')
     else:
         form = SignupForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'qa/signup.html', {'form': form})
 
 
 def login(request):
@@ -84,4 +84,4 @@ def login(request):
             return HttpResponseRedirect('/')
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'qa/login.html', {'form': form})
