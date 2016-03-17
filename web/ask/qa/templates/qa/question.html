@@ -15,4 +15,9 @@
     {% endfor %}
 </ul>
 
+<form method="POST" action="/answer/">
+{% csrf_token %}
+{{ form }}
+</form>
+
 {% endblock content %}

@@ -1,3 +1,6 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+
 from django import forms
 from models import Question, Answer
 
@@ -26,3 +29,31 @@ class AnswerForm(forms.Form):
             author=getattr(self, '_user', None),
         )
         return a
+
+
+class SignupForm(forms.Form):
+    username = forms.CharField(max_length=50)
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def save(self):
+        User.objects.create_user(
+            username=self.cleaned_data['username'],
+            email=self.cleaned_data['email'],
+            password=self.cleaned_data['password'],
+        )
+        return authenticate(
+            username=self.cleaned_data['username'],
+            password=self.cleaned_data['password'],
+        )
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=50)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def authuser(self):
+        return authenticate(
+            username=self.cleaned_data['username'],
+            password=self.cleaned_data['password'],
+        )
